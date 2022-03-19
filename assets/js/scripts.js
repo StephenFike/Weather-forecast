@@ -8,7 +8,6 @@ var formSubmitHandler = function (event) {
 
   if (cityName) {
     getCityWeather(cityName);
-    getHistory();
     cityNameEl.val("");
   } else {
     alert("Please enter a city name");
@@ -22,6 +21,7 @@ var getLocalStorage = function (data) {
     } else {
         localStorage.setItem("cityNames", data.name + "," + gotCityName);
     }
+    getHistory();
 };
 
 var getHistory = function() {
@@ -38,7 +38,6 @@ var getCityWeather = function (city) {
     apiKey;
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
-      console.log(response);
       response.json().then(function (data) {
         getLocalStorage(data);
         console.log(data);
@@ -49,16 +48,21 @@ var getCityWeather = function (city) {
   });
 };
 
+
+
+
+
 $("#user-form").on("submit", formSubmitHandler);
 
 var bootupHistory = function() {
     var gotCityName = localStorage.getItem("cityNames");
     if (gotCityName === null){
-
+        return
     } else {
        getHistory();
     }
 };
 
 bootupHistory();
-// class="w-100 bg-secondary text-black text-center mb-2 rounded py-1 - class for created Li's
+
+// class="w-100 bg-secondary text-black text-center mb-2 rounded py-1 cityHistoryBtn" - class for created Li's
