@@ -34,12 +34,14 @@ var getHistory = function() {
 
 var displayCityWeather = function(weather) {
   // create h1 for the current date
-
-  // create h2 for city name
-  var nameContainer = document.createElement("h2");
-  nameContainer.textContent = weather.name
+  
+  // clear currentWeather container and then create an h2 and append to the contrainer
+  document.querySelector('.currentWeather').innerHTML = '';
+  var nameContent = document.createElement('h2')
+  nameContent.textContent = weather.name
   // append to currentWeather container
-  currentWeatherContainerEl.append(nameContainer);
+  currentWeatherContainerEl.append(nameContent);
+  
 
 }
 
