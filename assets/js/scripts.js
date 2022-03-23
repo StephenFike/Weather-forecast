@@ -16,35 +16,6 @@ var formSubmitHandler = function (event) {
   }
 };
 
-var getLocalStorage = function (data) {
-    var gotCityName = localStorage.getItem("cityNames");
-    if(gotCityName === null){
-        localStorage.setItem("cityNames", data.name);
-    } else {
-        localStorage.setItem("cityNames", data.name + "," + gotCityName);
-    }
-    getHistory();
-};
-
-var getHistory = function() {
-    var historyCities = localStorage.getItem("cityNames");
-    var cityArray = historyCities.split(",")
-    console.log(cityArray);
-};
-
-var displayCityWeather = function(weather) {
-  // create h1 for the current date
-  
-  // clear currentWeather container and then create an h2 and append to the contrainer
-  document.querySelector('.currentWeather').innerHTML = '';
-  var nameContent = document.createElement('h2')
-  nameContent.textContent = weather.name
-  // append to currentWeather container
-  currentWeatherContainerEl.append(nameContent);
-  
-
-}
-
 var getCityWeather = function (city) {
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -55,7 +26,7 @@ var getCityWeather = function (city) {
     if (response.ok) {
       response.json().then(function (data) {
         displayCityWeather(data);
-        getLocalStorage(data);
+        setLocalStorage(data);
         console.log(data);
       });
     } else {
@@ -64,21 +35,49 @@ var getCityWeather = function (city) {
   });
 };
 
+var displayCityWeather = function(weather) {
+  // create h1 for the current date
+  
+  // clear currentWeather container and then create an h2 and append to the contrainer
+  document.querySelector('.currentWeather').innerHTML = '';
+  var nameContent = document.createElement('h2');
+  nameContent.textContent = weather.name;
+  // append to currentWeather container
+  currentWeatherContainerEl.append(nameContent);
+  // create h3 elements for temp, humidity, wind speed, and UV
+  var temp = document.createElement('h3');
+  var humid = document.createElement('h3');
+  var windSpeed = document.createElement('h3');
+  var uv = document.createElement('h3');
+  // set values to h3 elements
+  temp.textContent = "Temp: " + weather.main.temp;
+  humid.textContent = "Humidity: " + weather.main.humidity;
+  windSpeed.textContent = "Wind Speed: " + weather.wind.speed;
+  // append to currentWeather container
+  currentWeatherContainerEl.append(temp, humid, windSpeed)
+};
 
+var setLocalStorage = function (data) {
+  localStorage.setItem(data.name, data.name);
+};
 
-
+function getRecentCities() {
+  for (var i = 0; i < localStorage.length; i++) {
+    var recentBtn = document.createElement('button');
+    var recentCont = document.querySelector('.historyList');
+    recentBtn.innerHTML = localStorage.key(i);
+    recentCont.appendChild(recentBtn);
+    recentBtn.className = 'w-100 bg-secondary text-black text-center mb-2 rounded py-1'
+  }
+};
 
 $("#user-form").on("submit", formSubmitHandler);
 
-var bootupHistory = function() {
-    var gotCityName = localStorage.getItem("cityNames");
-    if (gotCityName === null){
-        return
-    } else {
-       getHistory();
-    }
-};
+$('.historyList').on('click', 'button', function(event) {
+  var buttonClick = event.target.innerHTML
+  getCityWeather(buttonClick);
+})
 
-bootupHistory();
+getRecentCities();
 
 // class="w-100 bg-secondary text-black text-center mb-2 rounded py-1 cityHistoryBtn" - class for created Li's
