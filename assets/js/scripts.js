@@ -38,18 +38,18 @@ var getCityWeather = function (city) {
 var displayCityWeather = function(weather) {
   // create h1 for the current date
   
-  // clear currentWeather container and then create an h2 and append to the contrainer
+  // clear currentWeather container and then create an h1 and append to the contrainer
   document.querySelector('.currentWeather').innerHTML = '';
-  var nameContent = document.createElement('h2');
+  var nameContent = document.createElement('h1');
   nameContent.textContent = weather.name;
   // append to currentWeather container
   currentWeatherContainerEl.append(nameContent);
-  // create h3 elements for temp, humidity, wind speed, and UV
-  var temp = document.createElement('h3');
-  var humid = document.createElement('h3');
-  var windSpeed = document.createElement('h3');
-  var uv = document.createElement('h3');
-  // set values to h3 elements
+  // create h6 elements for temp, humidity, wind speed, and UV
+  var temp = document.createElement('h6');
+  var humid = document.createElement('h6');
+  var windSpeed = document.createElement('h6');
+  var uv = document.createElement('h6');
+  // set values to h6 elements
   temp.textContent = "Temp: " + weather.main.temp;
   humid.textContent = "Humidity: " + weather.main.humidity;
   windSpeed.textContent = "Wind Speed: " + weather.wind.speed;
