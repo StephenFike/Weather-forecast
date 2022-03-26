@@ -10,4 +10,5 @@ See current and future weather conitions for searched city
 ![](assets/images/screenshot.JPG)
 
 ### Contributors
+- Stephen Fike
 - Jamel James - Assisted with figuring out how to display forecast info and local storage - [GitHub Repo](https://github.com/jrj-sys)
