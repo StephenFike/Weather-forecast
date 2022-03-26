@@ -92,9 +92,13 @@ var displayCityWeather = function(weather) {
   document.querySelector('.currentWeather').innerHTML = '';
   var nameContent = document.createElement('h1');
   nameContent.textContent = weather.name;
+  // create div to hold weather icon
+  var weatherIconEl = document.createElement('img');
+  weatherIconEl.setAttribute('src', 'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '.png')
   // append to currentWeather container
   currentWeatherContainerEl.append(nameContent);
   currentWeatherContainerEl.append(dateEl);
+  currentWeatherContainerEl.append(weatherIconEl);
   // create h6 elements for temp, humidity, wind speed
   var temp = document.createElement('h6');
   var humid = document.createElement('h6');
