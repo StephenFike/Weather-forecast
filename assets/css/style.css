@@ -38,3 +38,15 @@ header h1 {
 .btn {
     width: 100%;
 }
+
+.favorable {
+    background-color: green;
+}
+
+.moderate {
+    background-color: yellow;
+}
+
+.severe {
+    background-color: red;
+}
